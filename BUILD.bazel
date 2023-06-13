@@ -1,7 +1,4 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_binary")
+load("@bazel_gazelle//:def.bzl", "gazelle")
 
-go_binary(
-    name = "hello",
-    srcs = ["hello.go"],
-    visibility = ["//visibility:public"],
-)
+# gazelle:prefix hello_golang
+gazelle(name = "gazelle")

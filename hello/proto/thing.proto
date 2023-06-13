@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-package example;
+option go_package = "./hello";
+package hello;
 
 import "google/protobuf/any.proto";
 

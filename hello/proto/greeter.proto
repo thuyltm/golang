@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "hello.Greeter";
+option java_outer_classname = "GreeterProto";
+
+option go_package = "./hello";
+package hello;
+
+import "google/protobuf/any.proto";
+import "hello/proto/thing.proto";
+
+
+// The greeting service definition.
+service Greeter {
+    // Sends a greeting
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+    string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+    string message = 1;
+    google.protobuf.Any payload = 2;
+    hello.Thing thing = 3;
+}

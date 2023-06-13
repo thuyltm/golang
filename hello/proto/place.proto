@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option go_package = "./hello";
+package hello;
+
+import "hello/proto/thing.proto";
+
+message Place {
+    string name = 1;
+    hello.Thing thing = 2;
+}

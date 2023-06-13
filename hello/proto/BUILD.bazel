@@ -1,0 +1,85 @@
+load("@rules_proto_grpc//cpp:defs.bzl", "cpp_proto_compile")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_proto_grpc//go:defs.bzl", "go_proto_compile")
+load("@rules_proto_grpc//go:defs.bzl", "go_proto_library")
+load("@rules_proto_grpc//go:defs.bzl", "go_grpc_library")
+load("@rules_proto_grpc//go:defs.bzl", "go_grpc_compile")
+
+proto_library(
+    name = "thing_proto",
+    srcs = ["thing.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_google_protobuf//:any_proto",
+    ],
+)
+
+go_proto_compile(
+    name = "thing_go_proto",
+    protos = [":thing_proto"],
+)
+
+go_grpc_compile(
+    name = "thing_go_grpc",
+    protos = [":thing_proto"],
+)
+
+proto_library(
+    name = "place_proto",
+    srcs = ["place.proto"],
+    visibility = ["//visibility:public"],
+    deps = [":thing_proto"],
+)
+
+go_proto_compile(
+    name = "place_go_proto",
+    protos = [":place_proto"],
+)
+
+proto_library(
+    name = "person_proto",
+    srcs = ["person.proto"],
+    visibility = ["//visibility:public"],
+    deps = [":place_proto"],
+)
+
+go_proto_compile(
+    name = "person_go_proto",
+    protos = [":person_proto"],
+)
+
+go_proto_library(
+    name = "hello_go_proto_lib",
+    importpath = "hello/proto",
+    protos = [
+        ":person_proto",
+        ":place_proto",
+        ":thing_proto",
+    ],
+)
+
+proto_library(
+    name = "greeter_grpc",
+    srcs = [
+        "greeter.proto",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":thing_proto",  # Non well-known
+        "@com_google_protobuf//:any_proto",  # Well-known
+    ],
+)
+
+go_grpc_compile(
+    name = "greeter_go_grpc",
+    protos = [":greeter_grpc"],
+)
+
+go_grpc_library(
+    name = "greeter_go_grpc_lib",
+    importpath = "hello/proto",
+    protos = [
+        ":greeter_grpc",
+        ":thing_proto",
+    ],
+)
