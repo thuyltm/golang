@@ -4,6 +4,9 @@ load("@rules_proto_grpc//go:defs.bzl", "go_proto_compile")
 load("@rules_proto_grpc//go:defs.bzl", "go_proto_library")
 load("@rules_proto_grpc//go:defs.bzl", "go_grpc_library")
 load("@rules_proto_grpc//go:defs.bzl", "go_grpc_compile")
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+package(default_visibility = ["//visibility:public"])
 
 proto_library(
     name = "thing_proto",
@@ -17,6 +20,7 @@ proto_library(
 go_proto_compile(
     name = "thing_go_proto",
     protos = [":thing_proto"],
+    visibility = ["//visibility:public"],
 )
 
 go_grpc_compile(
@@ -58,6 +62,12 @@ go_proto_library(
     ],
 )
 
+go_library(
+    name = "hello_go_proto_lib_embed",
+    embed = [":hello_go_proto_lib"],
+    importpath = "hello/proto",
+)
+
 proto_library(
     name = "greeter_grpc",
     srcs = [
@@ -75,8 +85,9 @@ go_grpc_compile(
     protos = [":greeter_grpc"],
 )
 
-go_grpc_library(
+go_proto_library(
     name = "greeter_go_grpc_lib",
+    compilers = ["@io_bazel_rules_go//proto:go_grpc"],
     importpath = "hello/proto",
     protos = [
         ":greeter_grpc",
