@@ -7,15 +7,8 @@ go_binary(
 )
 
 go_library(
-    name = "lib",
-    srcs = ["hello.go"],
-    importpath = "",
-    visibility = ["//visibility:private"],
-)
-
-go_library(
     name = "hello_lib",
     srcs = ["hello.go"],
     importpath = "hello_golang/hello",
-    visibility = ["//visibility:private"],
+    visibility = ["//visibility:public"],
 )

@@ -83,3 +83,15 @@ go_grpc_library(
         ":thing_proto",
     ],
 )
+
+proto_library(
+    name = "routeguide_proto",
+    srcs = ["routeguide.proto"],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "routeguide_features",
+    srcs = ["routeguide_features.json"],
+    visibility = ["//visibility:public"],
+)
