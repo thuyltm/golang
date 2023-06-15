@@ -3,7 +3,7 @@ package main
 import (
  "fmt"
  "flag"
- "hello_golang/hello"
+ "hello_golang/hello/room"
 )
 
 var (
@@ -13,4 +13,5 @@ var (
 
 func main() {
   fmt.Println("hello world")
+  room.PrintDetails(112, 3, 2)
 }

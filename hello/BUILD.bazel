@@ -13,5 +13,6 @@ go_library(
     visibility = ["//visibility:public"],
     deps = [
         "//hello/proto:hello_go_proto_lib",
+        "//hello/room:room_lib",
     ],
 )

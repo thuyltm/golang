@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "./hello_proto";
+option go_package = "./proto";
 package hello;
 
 import "hello/proto/thing.proto";
