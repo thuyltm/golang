@@ -65,7 +65,7 @@ go_proto_library(
 go_library(
     name = "hello_go_proto_lib_embed",
     embed = [":hello_go_proto_lib"],
-    importpath = "hello_golang/hello/proto",
+    importpath = "golang-bazel-demo-app/hello/proto",
 )
 
 proto_library(
@@ -88,7 +88,7 @@ go_grpc_compile(
 go_proto_library(
     name = "greeter_go_grpc_lib",
     compilers = ["@io_bazel_rules_go//proto:go_grpc"],
-    importpath = "hello_golang/hello/proto",
+    importpath = "golang-bazel-demo-app/hello/proto",
     protos = [
         ":greeter_grpc",
         ":thing_proto",

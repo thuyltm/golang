@@ -1,9 +1,10 @@
 package main
 
 import (
- "fmt"
- "flag"
- "hello_golang/hello/room"
+	"flag"
+	"fmt"
+
+	"golang-bazel-demo-app/hello/room"
 )
 
 var (
@@ -12,6 +13,18 @@ var (
 )
 
 func main() {
-  fmt.Println("hello world")
-  room.PrintDetails(112, 3, 2)
+	fmt.Println("hello world")
+	room.PrintDetails(112, 3, 2)
+	i := 1
+	fmt.Println("initial:", i)
+	room.Zeroval(i)
+	fmt.Println("zeroval:", i)
+	room.Zeroptr(&i)
+	fmt.Println("zeroptr:", i)
+	fmt.Println("pointer:", &i)
+	cat := room.Cat{Color: "blue", Age: 8, Name: "Milow"}
+	cat.Rename("Bob")
+	fmt.Println(cat.Name)
+	cat.RenameV2("Ben")
+	fmt.Println(cat.Name)
 }
