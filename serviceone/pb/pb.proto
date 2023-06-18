@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package svc;
+
+option go_package = "./pb";
+
+service ServiceOne {
+  rpc Hello(HelloRequest) returns (HelloResponse);
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string msg = 1;
+}

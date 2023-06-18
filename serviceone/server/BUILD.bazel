@@ -1,0 +1,13 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+package(default_visibility = ["//visibility:public"])
+
+go_library(
+    name = "server_lib",
+    srcs = ["server.go"],
+    importpath = "golang-bazel-demo-app/serviceone/server",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//serviceone/pb:pb_go_grpc"
+    ],
+)
