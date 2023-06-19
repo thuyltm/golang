@@ -1,0 +1,19 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_binary(
+    name = "serviceone",
+    embed = [":serviceone_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "serviceone_lib",
+    srcs = ["main.go"],
+    importpath = "golang-bazel-demo-app/serviceone",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//serviceone/server:server_lib",
+         "//serviceone/pb:pb_go_grpc",
+         "@org_golang_google_grpc//:go_default_library"
+    ],
+)

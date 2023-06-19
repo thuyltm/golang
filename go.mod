@@ -13,4 +13,5 @@ require (
 	golang.org/x/sync v0.2.0 // indirect
 	golang.org/x/sys v0.8.0 // indirect
 	golang.org/x/tools v0.9.1 // indirect
+	google.golang.org/grpc v1.56.0
 )
