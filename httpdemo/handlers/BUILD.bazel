@@ -6,6 +6,6 @@ go_library(
     importpath = "golang-bazel-demo-app/httpdemo/handlers",
     visibility = ["//visibility:public"],
     deps = [
-        "//httpdemo/greetings:greetings_lib"
+        "//httpdemo/greetings:greetings_lib",
     ],
 )

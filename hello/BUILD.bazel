@@ -11,8 +11,5 @@ go_library(
     srcs = ["hello.go"],
     importpath = "golang-bazel-demo-app/hello",
     visibility = ["//visibility:public"],
-    deps = [
-        "//hello/proto:hello_go_proto_lib",
-        "//hello/room:room_lib",
-    ],
+    deps = ["//hello/room:room_lib"],
 )

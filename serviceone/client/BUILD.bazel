@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "client",
+    srcs = ["client.go"],
+    importpath = "golang-bazel-demo-app/serviceone/client",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//serviceone/pb",
+        "@org_golang_google_grpc//:go_default_library",
+    ],
+)
