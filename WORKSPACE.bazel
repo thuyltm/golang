@@ -30,7 +30,7 @@ http_archive(
     ],
 )
 
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 load("//:deps.bzl", "go_dependencies")
 
 # gazelle:repository_macro deps.bzl%go_dependencies
@@ -39,6 +39,20 @@ go_dependencies()
 gazelle_dependencies(go_repository_default_config = "//:WORKSPACE.bazel")
 
 load("//:repositories.bzl", "go_repositories")
+
+go_repository(
+    name = "github_com_zergon321_reisen",
+    importpath = "github.com/zergon321/reisen",
+    sum = "h1:rflBVtSoc4xXR3tXN+b2Hvk/Fb3qaJhgj+CJ/YWOYmI=",
+    version = "v0.1.8"
+)
+
+go_repository(
+    name = "github_com_gorilla_websocket",
+    importpath = "github.com/gorilla/websocket",
+    sum = "h1:PPwGk2jz7EePpoHN/+ClbZu8SPxiqlu12wZP/3sWmnc=",
+    version = "v1.5.0"
+)
 
 # gazelle:repository_macro repositories.bzl%go_repositories
 go_repositories()

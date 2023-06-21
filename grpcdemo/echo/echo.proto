@@ -1,0 +1,13 @@
+syntax = "proto3"
+
+package echo;
+
+option go_package = ""
+
+service EchoServer {
+
+}
+
+message EchoRequest {
+
+}
