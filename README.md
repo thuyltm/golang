@@ -1,6 +1,6 @@
 ### Run update golang external dependencies
 
-Import repositories from go.mod and update macro
+1. Import repositories from go.mod and update macro
 
 ```
 go get github.com/gorilla/websocket
@@ -8,7 +8,7 @@ go install github.com/bazelbuild/bazel-gazelle/cmd/gazelle@latest
 bazel run //:gazelle -- update-repos -from_file=go.mod -to_macro=deps.bzl%go_dependencies
 ```
 
-OR in WORKSPACE.bazel
+2. OR in WORKSPACE.bazel
 ```
 
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
@@ -30,4 +30,27 @@ go_repository(
 
 # gazelle:repository_macro repositories.bzl%go_repositories
 go_repositories()
+```
+
+3. Or Use non-Bazel Libraries in Bazel Project
+```
+# WORKSPACE
+new_local_repository(
+    name = "system_libs",
+    build_file_content = """
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "libvirt",
+    srcs = ["libvirt.so", "libvirt-admin.so", "libvirt-lxc.so", "libvirt-qemu.so"],
+    visibility = ["//visibility:public"],
+)
+""",
+    path = "/usr/lib64",
+)
+# BUILD.bazel
+go_library(
+  cdeps = ["@system_libs//:libvirt"],
+  cgo = True
+)  
 ```

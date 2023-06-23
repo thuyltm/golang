@@ -149,6 +149,13 @@ def go_repositories():
         sum = "h1:e0WKqKTd5BnrG8aKH3J3h+QvEIQtSUcf2n5UZ5ZgLtQ=",
         version = "v0.26.0",
     )
+
+    go_repository(
+        name = "github_com_zergon321_reisen",
+        importpath = "github.com/zergon321/reisen",
+        sum = "h1:rflBVtSoc4xXR3tXN+b2Hvk/Fb3qaJhgj+CJ/YWOYmI=",
+        version = "v0.1.8",
+    )
     go_repository(
         name = "net_starlark_go",
         importpath = "go.starlark.net",
