@@ -50,21 +50,28 @@ cc_library(
     srcs = ["libavformat.so", "libavcodec.so", "libavutil.so", "libswscale.so", "libswresample.so"],
     visibility = ["//visibility:public"]
 )""",
-    path = "/usr/lib/x86_64-linux-gnu/"
+    path = "/usr/lib/x86_64-linux-gnu/",
 )
 
 go_repository(
     name = "github_com_zergon321_reisen",
     importpath = "github.com/zergon321/reisen",
     sum = "h1:rflBVtSoc4xXR3tXN+b2Hvk/Fb3qaJhgj+CJ/YWOYmI=",
-    version = "v0.1.8"
+    version = "v0.1.8",
 )
 
 go_repository(
     name = "github_com_gorilla_websocket",
     importpath = "github.com/gorilla/websocket",
     sum = "h1:PPwGk2jz7EePpoHN/+ClbZu8SPxiqlu12wZP/3sWmnc=",
-    version = "v1.5.0"
+    version = "v1.5.0",
+)
+
+go_repository(
+    name = "com_github_confluentinc_confluent_kafka_go",
+    importpath = "github.com/confluentinc/confluent-kafka-go/v2",
+    sum = "h1:qwZtgyGS4OjvebR4TkZPxHAQRN/IbdaxpCQyhDpxeaE=",
+    version = "v2.1.1",
 )
 
 # gazelle:repository_macro repositories.bzl%go_repositories
@@ -81,10 +88,10 @@ http_archive(
 )
 
 http_archive(
-  name = "googleapi",
-  url = "https://github.com/googleapis/googleapis/archive/common-protos-1_3_1.zip",
-  strip_prefix = "googleapis-common-protos-1_3_1/",
-  build_file_content = "proto_library(name = 'annotations_proto', srcs = ['google/api/annotations.proto'])"
+    name = "googleapi",
+    build_file_content = "proto_library(name = 'annotations_proto', srcs = ['google/api/annotations.proto'])",
+    strip_prefix = "googleapis-common-protos-1_3_1/",
+    url = "https://github.com/googleapis/googleapis/archive/common-protos-1_3_1.zip",
 )
 
 http_archive(
@@ -160,3 +167,55 @@ load(
 )
 
 _go_image_repos()
+
+##############################################################################
+# A crude way to do this is using a genrule, which allow us to invoke
+# any arbitrary command
+# But there's another called rules_foreign_cc which are Bazel Rules for
+# building C/C++ projects using foreign build systems inside Bazel projects
+##############################################################################
+http_archive(
+    name = "rules_foreign_cc",
+    # TODO: Get the latest sha256 value from a bazel debug message or the latest
+    #       release on the releases page: https://github.com/bazelbuild/rules_foreign_cc/releases
+    #
+    # sha256 = "...",
+    strip_prefix = "rules_foreign_cc-6ecc134b114f6e086537f5f0148d166467042226",
+    url = "https://github.com/bazelbuild/rules_foreign_cc/archive/6ecc134b114f6e086537f5f0148d166467042226.tar.gz",
+)
+
+load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+
+rules_foreign_cc_dependencies()
+
+http_archive(
+    name = "librdkafka",
+    build_file_content = """load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
+
+filegroup(
+    name = "sources",
+    srcs = glob(["**"]),
+)
+
+cmake(
+    name = "librdkafka",
+    cache_entries = {
+        "RDKAFKA_BUILD_STATIC": "ON",
+        "WITH_ZSTD": "OFF",
+        "WITH_SSL": "OFF",
+        "WITH_SASL": "OFF",
+        "ENABLE_LZ4_EXT": "OFF",
+        "WITH_LIBDL": "OFF",
+    },
+    lib_source = ":sources",
+    out_static_libs = [
+        "librdkafka++.a",
+        "librdkafka.a",
+    ],
+    visibility = ["//visibility:public"],
+)
+""",
+    sha256 = "7be1fc37ab10ebdc037d5c5a9b35b48931edafffae054b488faaff99e60e0108",
+    strip_prefix = "librdkafka-2.1.1",
+    urls = ["https://github.com/confluentinc/librdkafka/archive/refs/tags/v2.1.1.tar.gz"],
+)

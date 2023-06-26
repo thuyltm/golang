@@ -4,6 +4,8 @@ go 1.19
 
 require github.com/gorilla/mux v1.8.0
 
+require github.com/confluentinc/confluent-kafka-go/v2 v2.1.1 // indirect
+
 require (
 	github.com/bazelbuild/bazel-gazelle v0.31.1 // indirect
 	github.com/bazelbuild/buildtools v0.0.0-20230510134650-37bd1811516d // indirect
