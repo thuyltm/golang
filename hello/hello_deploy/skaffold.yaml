@@ -1,0 +1,26 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+profiles:
+  - name: dev
+    build:
+      tagPolicy:
+        sha256: {} # the image’s sha256 digest is used in addition to :latest
+      local:
+        push: false
+        #useDockerCLI: true
+        #useBuildkit: false
+      artifacts:
+        - image: docker.io/thuyltm2201/hello-server
+          context: .
+          #bazel: comment out because of issue `docker load -i ......`
+            #target: hello/hello-container-layer.tar
+          custom:
+            buildCommand: hello/hello_deploy/build.sh
+    deploy:
+      helm:
+        releases:
+          - name: hello-server-dev
+            chartPath: hello/hello_deploy
+            valuesFiles:
+              - hello/hello_deploy/values.yaml
+

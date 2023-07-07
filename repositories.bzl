@@ -153,8 +153,21 @@ def go_repositories():
     go_repository(
         name = "github_com_zergon321_reisen",
         importpath = "github.com/zergon321/reisen",
+        patch_args = ["-p1"],
+        build_file_proto_mode = "disable",
+        patches = ["//thirdparty/reisen:BUILD.patch"],  # keep
         sum = "h1:rflBVtSoc4xXR3tXN+b2Hvk/Fb3qaJhgj+CJ/YWOYmI=",
         version = "v0.1.8",
+    )
+
+    go_repository(
+        name = "in_gopkg_hraban_opus_v2",
+        importpath = "gopkg.in/hraban/opus.v2",
+        sum = "h1:B8lK1KhYrE4H3urNYBAL/UquYftW65IHPY8JP3gpZ4M=",
+        patch_args = ["-p1"],
+        build_file_proto_mode = "disable",
+        patches = ["//thirdparty/hrabanopus:BUILD.patch"],  # keep
+        version = "v2.0.0-20220302220929-eeacdbcb92d0",
     )
     go_repository(
         name = "net_starlark_go",

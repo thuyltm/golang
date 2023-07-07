@@ -1,0 +1,51 @@
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_import")
+
+# The headers can be added in hdrs param in cc_import() or cc_library().
+# However, if cc_library() wrapper is used, it is suggested to add in the cc_library().
+# The header files are included in the package manager. For debian related systems, we can use
+# $ dpkg -L libopus-dev
+# $ dpkg -L libopusfile-dev
+# to list the installed files.
+cc_library(
+    name = "libopus",
+    hdrs = [
+        "//:include/opus/opus.h",
+        "//:include/opus/opus_defines.h",
+        "//:include/opus/opus_multistream.h",
+        "//:include/opus/opus_projection.h",
+        "//:include/opus/opus_types.h",
+        "//:include/opus/opusfile.h",
+    ],
+    strip_include_prefix = "include/opus", # allow the code to #include <opus.h> directly
+    deps = [               # the sequence of deps is important because it impacts the sequence of linking
+        "//:libopusfile_private",
+        "//:libopusurl_private",
+        "//:libopus_private",
+        "@libogg//:libogg"
+    ],
+    visibility = ["//visibility:public"],
+)
+
+# Each cc_import() shall contain only one library.
+# If multiple libraries are needed, we must use the cc_library() as a wrapper
+# to depend on the required multiple libraries.
+cc_import(
+    name = "libopus_private",
+    static_library = "//:lib/x86_64-linux-gnu/libopus.a",
+    shared_library = "//:lib/x86_64-linux-gnu/libopus.so",
+    visibility = ["//visibility:private"],
+)
+
+cc_import(
+    name = "libopusfile_private",
+    static_library = "//:lib/libopusfile.a",
+    shared_library = "//:lib/libopusfile.so",
+    visibility = ["//visibility:private"],
+)
+
+cc_import(
+    name = "libopusurl_private",
+    static_library = "//:lib/libopusurl.a",
+    shared_library = "//:lib/libopusurl.so",
+    visibility = ["//visibility:private"],
+)

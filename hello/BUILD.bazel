@@ -1,15 +1,46 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
 
 go_binary(
     name = "hello",
     embed = [":hello_lib"],
-    visibility = ["//visibility:public"],
+    visibility = ["//visibility:public"]
 )
 
 go_library(
     name = "hello_lib",
-    srcs = ["hello.go"],
+    srcs = ["main.go"],
     importpath = "golang-bazel-demo-app/hello",
     visibility = ["//visibility:public"],
     deps = ["//hello/room:room_lib"],
+)
+
+go_image(
+    name = "hello-image",
+    embed = [":hello_lib"],
+    base = "@distroless_base//image",
+    visibility = ["//visibility:public"],
+    goos = "linux",
+    goarch = "amd64"
+)
+
+container_image(
+    name = "hello-container",
+    base = ":hello-image"
+)
+
+container_push(
+  name = "hello-image-publish",
+  format = "Docker",
+  image = ":hello-image",
+  registry = "docker.io",
+  repository = "thuyltm2201/hello-server"
+)
+
+go_test(
+    name = "hellotest",
+    srcs = ["hellotest.go"],
+    size="small",
+    importpath = "golang-bazel-demo-app/hello"
 )

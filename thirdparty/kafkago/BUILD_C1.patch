@@ -1,0 +1,53 @@
+--- com_github_confluentinc_confluent_kafka_go/kafka/BUILD.bazel
++++ com_github_confluentinc_confluent_kafka_go/kafka/BUILD.bazel
+@@ -36,33 +36,33 @@
+     cgo = True,
+     clinkopts = select({
+         "@io_bazel_rules_go//go/platform:windows": [
+-            "kafka/librdkafka_vendor/librdkafka_windows.a -lws2_32 -lsecur32 -lcrypt32",
++            "external/com_github_confluentinc_confluent_kafka_go/kafka/librdkafka_vendor/librdkafka_windows.a -lws2_32 -lsecur32 -lcrypt32",
+         ],
+         "//conditions:default": [],
+     }) + select({
+         "@io_bazel_rules_go//go/platform:android_amd64": [
+-            "kafka/librdkafka_vendor/librdkafka_glibc_linux_amd64.a -lm -ldl -lpthread -lrt",
++            "external/com_github_confluentinc_confluent_kafka_go/kafka/librdkafka_vendor/librdkafka_glibc_linux_amd64.a -lm -ldl -lpthread -lrt",
+         ],
+         "@io_bazel_rules_go//go/platform:android_arm64": [
+-            "kafka/librdkafka_vendor/librdkafka_glibc_linux_arm64.a -lm -ldl -lpthread -lrt",
++            "external/com_github_confluentinc_confluent_kafka_go/kafka/librdkafka_vendor/librdkafka_glibc_linux_arm64.a -lm -ldl -lpthread -lrt",
+         ],
+         "@io_bazel_rules_go//go/platform:darwin_amd64": [
+-            "kafka/librdkafka_vendor/librdkafka_darwin_amd64.a -lm -lsasl2 -ldl -lpthread -framework CoreFoundation -framework SystemConfiguration",
++            "external/com_github_confluentinc_confluent_kafka_go/kafka/librdkafka_vendor/librdkafka_darwin_amd64.a -lm -lsasl2 -ldl -lpthread -framework CoreFoundation -framework SystemConfiguration",
+         ],
+         "@io_bazel_rules_go//go/platform:darwin_arm64": [
+-            "kafka/librdkafka_vendor/librdkafka_darwin_arm64.a -lm -lsasl2 -ldl -lpthread -framework CoreFoundation -framework SystemConfiguration",
++            "external/com_github_confluentinc_confluent_kafka_go/kafka/librdkafka_vendor/librdkafka_darwin_arm64.a -lm -lsasl2 -ldl -lpthread -framework CoreFoundation -framework SystemConfiguration",
+         ],
+         "@io_bazel_rules_go//go/platform:ios_amd64": [
+-            "kafka/librdkafka_vendor/librdkafka_darwin_amd64.a -lm -lsasl2 -ldl -lpthread -framework CoreFoundation -framework SystemConfiguration",
++            "external/com_github_confluentinc_confluent_kafka_go/kafka/librdkafka_vendor/librdkafka_darwin_amd64.a -lm -lsasl2 -ldl -lpthread -framework CoreFoundation -framework SystemConfiguration",
+         ],
+         "@io_bazel_rules_go//go/platform:ios_arm64": [
+-            "kafka/librdkafka_vendor/librdkafka_darwin_arm64.a -lm -lsasl2 -ldl -lpthread -framework CoreFoundation -framework SystemConfiguration",
++            "external/com_github_confluentinc_confluent_kafka_go/kafka/librdkafka_vendor/librdkafka_darwin_arm64.a -lm -lsasl2 -ldl -lpthread -framework CoreFoundation -framework SystemConfiguration",
+         ],
+         "@io_bazel_rules_go//go/platform:linux_amd64": [
+-            "kafka/librdkafka_vendor/librdkafka_glibc_linux_amd64.a -lm -ldl -lpthread -lrt",
++            "external/com_github_confluentinc_confluent_kafka_go/kafka/librdkafka_vendor/librdkafka_glibc_linux_amd64.a -lm -ldl -lpthread -lrt",
+         ],
+         "@io_bazel_rules_go//go/platform:linux_arm64": [
+-            "kafka/librdkafka_vendor/librdkafka_glibc_linux_arm64.a -lm -ldl -lpthread -lrt",
++            "external/com_github_confluentinc_confluent_kafka_go/kafka/librdkafka_vendor/librdkafka_glibc_linux_arm64.a -lm -ldl -lpthread -lrt",
+         ],
+         "//conditions:default": [],
+     }),
+@@ -106,6 +106,7 @@
+     importpath_aliases = ["github.com/confluentinc/confluent-kafka-go/kafka"],
+     visibility = ["//visibility:public"],
+     deps = ["//kafka/librdkafka_vendor"],
++    cdeps = ["//kafka/librdkafka_vendor:librdkafka_static"]
+ )
+ 
+ alias(

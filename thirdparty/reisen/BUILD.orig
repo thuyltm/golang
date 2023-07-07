@@ -1,0 +1,32 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "reisen",
+    srcs = [
+        "audio.go",
+        "audioframe.go",
+        "errors.go",
+        "frame.go",
+        "interpolation.go",
+        "media.go",
+        "network.go",
+        "packet.go",
+        "platform_darwin.go",
+        "platform_linux.go",
+        "platform_windows.go",
+        "stream.go",
+        "time.go",
+        "unknown.go",
+        "video.go",
+        "videoframe.go",
+    ],
+    cgo = True,
+    importpath = "github.com/zergon321/reisen",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":reisen",
+    visibility = ["//visibility:public"],
+)

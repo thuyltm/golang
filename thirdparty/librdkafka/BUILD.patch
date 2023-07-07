@@ -1,0 +1,25 @@
+--- com_github_confluentinc_confluent_kafka_go/kafka/librdkafka_vendor/BUILD.bazel
++++ com_github_confluentinc_confluent_kafka_go/kafka/librdkafka_vendor/BUILD.bazel
+@@ -1,5 +1,22 @@
+ load("@io_bazel_rules_go//go:def.bzl", "go_library")
+ 
++cc_library(
++    name = "librdkafka_static",
++    srcs = select({
++        "@io_bazel_rules_go//go/platform:linux_amd64": [
++            "librdkafka_glibc_linux_amd64.a",
++            "librdkafka_musl_linux_amd64.a",
++        ],
++        "@io_bazel_rules_go//go/platform:linux_arm64": [
++            "librdkafka_glibc_linux_arm64.a",
++            "librdkafka_musl_linux_arm64.a",
++        ],
++        "//conditions:default": [],
++    }),
++    hdrs = ["rdkafka.h", "rdkafka_mock.h"],
++    visibility = ["//visibility:public"],
++)
++
+ go_library(
+     name = "librdkafka_vendor",
+     srcs = [

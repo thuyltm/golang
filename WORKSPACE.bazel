@@ -53,9 +53,24 @@ cc_library(
     path = "/usr/lib/x86_64-linux-gnu/",
 )
 
+new_local_repository(
+    name = "libopus",
+    build_file = "@//thirdparty/opus:BUILD.bazel",
+    path = "/usr",
+)
+
+new_local_repository(
+    name = "libogg",
+    build_file = "@//thirdparty/ogg:BUILD.bazel",
+    path = "/usr",
+)
+
 go_repository(
     name = "github_com_zergon321_reisen",
     importpath = "github.com/zergon321/reisen",
+    patch_args = ["-p1"],
+    build_file_proto_mode = "disable",
+    patches = ["//thirdparty/reisen:BUILD.patch"],  # keep
     sum = "h1:rflBVtSoc4xXR3tXN+b2Hvk/Fb3qaJhgj+CJ/YWOYmI=",
     version = "v0.1.8",
 )
@@ -70,6 +85,9 @@ go_repository(
 go_repository(
     name = "com_github_confluentinc_confluent_kafka_go",
     importpath = "github.com/confluentinc/confluent-kafka-go/v2",
+    build_file_proto_mode = "disable",
+    patch_args = ["-p1"],
+    patches = ["//thirdparty/librdkafka:BUILD.patch","//thirdparty/kafkago:BUILD_C1.patch"],  # keep
     sum = "h1:qwZtgyGS4OjvebR4TkZPxHAQRN/IbdaxpCQyhDpxeaE=",
     version = "v2.1.1",
 )
@@ -159,6 +177,13 @@ container_pull(
     digest = "sha256:75f63d4edd703030d4312dc7528a349ca34d48bec7bd754652b2d47e5a0b7873",
     registry = "gcr.io",
     repository = "distroless/base",
+)
+
+container_pull(
+    name = "thuyhome_base",
+    digest = "sha256:0dbf91fe8d01dcce7f566408c8a754089dd9ab43599ff88f91904a792022f787",
+    registry = "docker.io",
+    repository = "thuyltm2201/thuyhome",
 )
 
 load(

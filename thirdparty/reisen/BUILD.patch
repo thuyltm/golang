@@ -1,0 +1,10 @@
+--- github_com_zergon321_reisen/BUILD.bazel
++++ github_com_zergon321_reisen/BUILD.bazel
+@@ -23,6 +23,7 @@
+     cgo = True,
+     importpath = "github.com/zergon321/reisen",
+     visibility = ["//visibility:public"],
++    cdeps = ["@system_libs//:libffmeg"],
+ )
+ 
+ alias(

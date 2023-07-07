@@ -1,0 +1,19 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "librdkafka_vendor",
+    srcs = [
+        "librdkafka.go",
+        "rdkafka.h",
+        "rdkafka_mock.h",
+    ],
+    importpath = "github.com/confluentinc/confluent-kafka-go/v2/kafka/librdkafka_vendor",
+    importpath_aliases = ["github.com/confluentinc/confluent-kafka-go/kafka/librdkafka_vendor"],
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":librdkafka_vendor",
+    visibility = ["//visibility:public"],
+)

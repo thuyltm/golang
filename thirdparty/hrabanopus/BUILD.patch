@@ -1,0 +1,10 @@
+--- in_gopkg_hraban_opus_v2/BUILD.bazel
++++ in_gopkg_hraban_opus_v2/BUILD.bazel
+@@ -15,6 +15,7 @@
+     cgo = True,
+     importpath = "gopkg.in/hraban/opus.v2",
+     visibility = ["//visibility:public"],
++    cdeps = ["@libopus//:libopus"], # keep
+ )
+ 
+ alias(
