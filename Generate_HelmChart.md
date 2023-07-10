@@ -24,3 +24,9 @@ https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/
 minikube addons enable ingress
 curl --resolve "hello-server-service.hello:80:$( minikube ip )" -i http://hello-server-service.hello/hello-server
 ```
+#### 3.2 Setup fake host `minikube.myhome` which point to $(minikube ip)
+```sh
+sudo vim /etc/hosts
+#192.168.49.2    minikube.myhome
+ping minikube.myhome
+```

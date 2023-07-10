@@ -33,6 +33,6 @@ sudo rm -rf ~/.minikube          # remove minikube
 
 ### 3. Setup Envoy, Ambassador Gateway, Linkerd Server Mesh,
 
-### 4. Promethesus, Grafana, VictoriaMetric
+### 4. Promethesus, Grafana, VictoriaMetric, ServiceMonitor, PodMonitor
 
-### 5. CI/CD Jenkins, Spinaker, Argocd
+### 5. CI/CD Jenkins, Spinaker, Argocd, Terraform, Minio, Thanos, Knative, Kserve
