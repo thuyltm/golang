@@ -1,8 +1,10 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+package(default_visibility = ["//visibility:public"])
 
 go_library(
     name = "cmd_lib",
     srcs = ["main.go"],
+    data = ["//httpdemo/html:html_files"],
     importpath = "golang-bazel-demo-app/httpdemo/cmd",
     visibility = ["//visibility:public"],
     deps = [
@@ -16,3 +18,5 @@ go_binary(
     embed = [":cmd_lib"],
     visibility = ["//visibility:public"],
 )
+
+
