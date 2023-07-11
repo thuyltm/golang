@@ -6,6 +6,7 @@ require github.com/gorilla/mux v1.8.0
 
 require (
 	github.com/confluentinc/confluent-kafka-go/v2 v2.1.1 // indirect
+	github.com/google/go-cmp v0.5.9 // indirect
 	gopkg.in/hraban/opus.v2 v2.0.0-20220302220929-eeacdbcb92d0 // indirect
 )
 

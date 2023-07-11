@@ -198,6 +198,8 @@ _go_image_repos()
 ##
 #############################################################################
 
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
 http_archive(
     name = "rules_oci",
     sha256 = "db57efd706f01eb3ce771468366baa1614b5b25f4cce99757e2b8d942155b8ec",
@@ -219,13 +221,11 @@ oci_register_toolchains(
     # zot_version = LATEST_ZOT_VERSION,
 )
 
-load("@rules_oci//oci:pull.bzl", "oci_pull")
-
-oci_pull(
-    name = "distroless_base",
-    digest = "sha256:ccaef5ee2f1850270d453fdf700a5392534f8d1a8ca2acda391fbb6a06b81c86",
-    image = "gcr.io/distroless/base",
-    platforms = ["linux/amd64"],
+http_archive(
+    name = "container-structure-test",
+    #sha256 = "db57efd706f01eb3ce771468366baa1614b5b25f4cce99757e2b8d942155b8ec",
+    strip_prefix = "container-structure-test-1.15.0",
+    url = "https://github.com/GoogleContainerTools/container-structure-test/archive/refs/tags/v1.15.0.tar.gz",
 )
 ##############################################################################
 # A crude way to do this is using a genrule, which allow us to invoke
