@@ -12,8 +12,8 @@ profiles:
       artifacts:
         - image: docker.io/thuyltm2201/hello-server
           context: .
-          #bazel: comment out because of issue `docker load -i ......`
-            #target: hello/hello-container-layer.tar
+          bazel: #comment out because of issue `docker load -i ......` 0B
+            #target: //hello:hello_layer.tar
           custom:
             buildCommand: hello/hello_deploy/build.sh
     deploy:

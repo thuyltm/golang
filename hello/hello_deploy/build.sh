@@ -1,5 +1,4 @@
 #!/bin/bash
 
-bazel run //hello:hello-image-publish
-docker save docker.io/thuyltm2201/hello-server:latest > test.tar
-docker load -i test.tar
+bazel build //hello:hello_oci_tarball
+docker load -i $(bazel cquery --output=files //hello:hello_oci_tarball)

@@ -1,11 +1,36 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("@io_bazel_rules_docker//go:image.bzl", "go_image")
 load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
+load("@rules_pkg//:pkg.bzl", "pkg_tar")
+package(default_visibility = ["//visibility:public"])
 
 go_binary(
     name = "hello",
     embed = [":hello_lib"],
     visibility = ["//visibility:public"]
+)
+
+# Put app go_binary into a tar layer.
+pkg_tar(
+    name = "hello_layer",
+    srcs = [":hello"],
+    # If the binary depends on RUNFILES, uncomment the attribute below.
+    include_runfiles = True
+)
+
+oci_image(
+    name = "hello_oci_image",
+    base = "@distroless_base",
+    tars = [":hello_layer"],
+    entrypoint = ["/hello"],
+)
+
+oci_tarball(
+    name = "hello_oci_tarball",
+    # Use the image built for the exec platform rather than the target platform
+    image = ":hello_oci_image",
+    repo_tags = ["docker.io/thuyltm2201/hello-server:latest"],
 )
 
 go_library(
