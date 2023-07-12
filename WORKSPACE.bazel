@@ -221,12 +221,6 @@ oci_register_toolchains(
     # zot_version = LATEST_ZOT_VERSION,
 )
 
-http_archive(
-    name = "container-structure-test",
-    #sha256 = "db57efd706f01eb3ce771468366baa1614b5b25f4cce99757e2b8d942155b8ec",
-    strip_prefix = "container-structure-test-1.15.0",
-    url = "https://github.com/GoogleContainerTools/container-structure-test/archive/refs/tags/v1.15.0.tar.gz",
-)
 ##############################################################################
 # A crude way to do this is using a genrule, which allow us to invoke
 # any arbitrary command

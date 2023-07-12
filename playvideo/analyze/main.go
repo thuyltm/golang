@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	absoluteFilePath := flag.String("file", "default.mp4", "absolute file path")
+	absoluteFilePath := flag.String("file", "playvideo/src/demo.mp4", "absolute file path")
 	flag.Parse()
 	// Open the media file by its name.
 	media, err := reisen.NewMedia(*absoluteFilePath)

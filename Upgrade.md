@@ -26,3 +26,10 @@ chmod +x ./kubectl
 sudo mv ./kubectl $(which kubectl)
 kubectl version --client --output=yaml
 ```
+
+### 4. OCI
+
+https://github.com/moby/buildkit/tree/master
+```shell
+
+```

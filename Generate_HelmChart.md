@@ -30,3 +30,8 @@ sudo vim /etc/hosts
 #192.168.49.2    minikube.myhome
 ping minikube.myhome
 ```
+
+#### 3.4. Add flag `--enable_bzlmod` to ~/.bazelrc
+```sh
+common --enable_bzlmod
+```

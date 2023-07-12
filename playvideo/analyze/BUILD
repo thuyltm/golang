@@ -8,7 +8,6 @@ package(default_visibility = ["//visibility:public"])
 go_binary(
     name = "analyze",
     embed = [":analyze_lib"],
-    data = ["golang-bazel-demo-app/playvideo/src/demo.mkv"],
     visibility = ["//visibility:public"]
 )
 

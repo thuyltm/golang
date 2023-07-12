@@ -1,0 +1,46 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
+load("@rules_pkg//:pkg.bzl", "pkg_tar")
+package(default_visibility = ["//visibility:public"])
+
+go_library(
+    name = "play_lib",
+    srcs = ["main.go"],
+    data = ["//playvideo/src:video_test"],
+    importpath = "golang-bazel-demo-app/playvideo/play",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@github_com_zergon321_reisen//:go_default_library"
+    ],
+)
+
+go_binary(
+    name = "play",
+    embed = [":play_lib"],
+    visibility = ["//visibility:public"]
+)
+
+# Put app go_binary into a tar layer.
+pkg_tar(
+    name = "play_layer",
+    srcs = [":play"],
+    # If the binary depends on RUNFILES, uncomment the attribute below.
+    include_runfiles = True
+)
+
+oci_image(
+    name = "play_oci_image",
+    base = "@go_image_base//image",
+    tars = [":play_layer"],
+    entrypoint = ["/play"],
+)
+
+oci_tarball(
+    name = "play_oci_tarball",
+    # Use the image built for the exec platform rather than the target platform
+    image = ":play_oci_image",
+    repo_tags = ["docker.io/thuyltm2201/play-server:latest"],
+)
+
