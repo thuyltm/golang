@@ -32,7 +32,7 @@ pkg_tar(
 
 oci_image(
     name = "play_oci_image",
-    base = "@go_image_base//image",
+    base = "@thuyhome_base//image",
     tars = [":play_layer"],
     entrypoint = ["/play"],
 )

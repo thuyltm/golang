@@ -6,7 +6,7 @@ Generate an auto-scale yaml file according to kubernetes version
 ```shell
 kubectl autoscale deployment hello-server-deployment --cpu-percent=50 --min=1 --max=10 -n hello
 ```
-### 2.
+### 2. Deploy by helm
 ```shell
 helm install hello-server hello/hello_deploy --values hello/hello_deploy/values.yaml -n hello
 ```

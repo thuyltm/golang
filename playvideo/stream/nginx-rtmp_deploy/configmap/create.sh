@@ -1,0 +1,1 @@
+kubectl create configmap nginx-rtmp-config --from-file=playvideo/stream/nginx-rtmp_deploy/configmap/nginx.conf -n hello
