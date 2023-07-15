@@ -162,11 +162,11 @@ def go_repositories():
 
     go_repository(
         name = "in_gopkg_hraban_opus_v2",
-        importpath = "gopkg.in/hraban/opus.v2",
-        sum = "h1:B8lK1KhYrE4H3urNYBAL/UquYftW65IHPY8JP3gpZ4M=",
-        patch_args = ["-p1"],
         build_file_proto_mode = "disable",
+        importpath = "gopkg.in/hraban/opus.v2",
+        patch_args = ["-p1"],
         patches = ["//thirdparty/hrabanopus:BUILD.patch"],  # keep
+        sum = "h1:B8lK1KhYrE4H3urNYBAL/UquYftW65IHPY8JP3gpZ4M=",
         version = "v2.0.0-20220302220929-eeacdbcb92d0",
     )
     go_repository(
@@ -246,15 +246,15 @@ def go_repositories():
     go_repository(
         name = "org_golang_x_sys",
         importpath = "golang.org/x/sys",
-        sum = "h1:EBmGv8NaZBZTWvrbjNoL6HVt+IVy3QDQpJs7VRIw3tU=",
-        version = "v0.8.0",
+        sum = "h1:SqMFp9UcQJZa+pmYuAKjd9xq1f0j5rLcDIk0mj4qAsA=",
+        version = "v0.10.0",
     )
 
     go_repository(
         name = "org_golang_x_text",
         importpath = "golang.org/x/text",
-        sum = "h1:2sjJmO8cDvYveuX97RDLsxlyUxLl+GHoLxBiRdHllBE=",
-        version = "v0.9.0",
+        sum = "h1:LAntKIrcmeSKERyiOh0XMV39LXS8IE9UL2yP7+f5ij4=",
+        version = "v0.11.0",
     )
     go_repository(
         name = "org_golang_x_tools",

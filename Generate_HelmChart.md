@@ -32,6 +32,7 @@ ping minikube.myhome
 ```
 
 #### 3.4. Add flag `--enable_bzlmod` to ~/.bazelrc
+If you use WORKSPACE.bazel, please comment out above
 ```sh
 common --enable_bzlmod
 ```
