@@ -814,6 +814,9 @@ def go_dependencies():
         importpath = "github.com/go-gl/glfw/v3.3/glfw",
         sum = "h1:GgabKamyOYguHqHjSkDACcgoPIz3w0Dis/zJ1wyHHHU=",
         version = "v0.0.0-20221017161538-93cebf72946b",
+        build_file_proto_mode = "disable",
+        patch_args = ["-p1"],
+        patches = ["//thirdparty/glfw_v3_3:BUILD.patch"],  # keep
     )
     go_repository(
         name = "com_github_go_ini_ini",

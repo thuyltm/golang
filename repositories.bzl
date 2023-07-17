@@ -268,3 +268,12 @@ def go_repositories():
         sum = "h1:H2TDz8ibqkAF6YGhCdN3jS9O0/s90v0rJh3X/OLHEUk=",
         version = "v0.0.0-20220907171357-04be3eba64a2",
     )
+    go_repository(
+        name = "com_github_go_gl_glfw_v3_3_glfw",
+        importpath = "github.com/go-gl/glfw/v3.3/glfw",
+        sum = "h1:GgabKamyOYguHqHjSkDACcgoPIz3w0Dis/zJ1wyHHHU=",
+        version = "v0.0.0-20221017161538-93cebf72946b",
+        build_file_proto_mode = "disable",
+        patch_args = ["-p1"],
+        patches = ["//thirdparty/glfw_v3_3:BUILD.patch"],  # keep
+    )

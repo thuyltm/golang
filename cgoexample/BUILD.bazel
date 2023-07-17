@@ -1,0 +1,28 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_binary")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_import", "cc_library")
+
+cc_library(
+    name = "hello_c",
+    srcs = [
+        "hello.c", "sum.c"
+    ],
+    hdrs = ["hello.h", "sum.h"],
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "hello_cgo_lib",
+    srcs = [
+        "main.go",
+    ],
+    cgo = True,
+    importpath = "golang-bazel-demo-app/cgoexample",
+    visibility = ["//visibility:public"],
+    cdeps = [":hello_c"]
+)
+
+go_binary(
+    name = "hello_cgo",
+    embed = [":hello_cgo_lib"],
+    visibility = ["//visibility:public"],
+)

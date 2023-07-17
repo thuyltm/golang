@@ -53,6 +53,15 @@ cc_library(
     path = "/usr/lib/x86_64-linux-gnu/",
 )
 
+http_archive(
+    name = "glfw",
+    build_file = "@//thirdparty/glfw:BUILD.bazel",
+    sha256 = "f30f42e05f11e5fc62483e513b0488d5bceeab7d9c5da0ffe2252ad81816c713",
+    strip_prefix = "glfw-3.3.8",
+    urls = ["https://github.com/glfw/glfw/archive/refs/tags/3.3.8.tar.gz"],
+)
+
+
 new_local_repository(
     name = "libopus",
     build_file = "@//thirdparty/opus:BUILD.bazel",

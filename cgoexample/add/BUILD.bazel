@@ -1,0 +1,20 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_import", "cc_library")
+
+go_test(
+    name = "opts_test",
+    srcs = ["adder_test.go"],
+    embed = [":opts"],
+)
+
+go_library(
+    name = "opts",
+    srcs = [
+        "add.c",
+        "add.cpp",
+        "add.h",
+        "adder.go",
+    ] ,
+    cgo = True,
+    importpath = "golang-bazel-demo-app/hello/add",
+)

@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_binary")
+
+go_library(
+    name = "hello_cgo",
+    srcs = ["hello.go"],
+    cdeps = [":hello_c"],
+    cgo = True,
+    importpath = "golang-bazel-demo-app/cgoexample/hello",
+)
+
+cc_library(
+    name = "hello_c",
+    srcs = ["hello.c"],
+    hdrs = ["hello.h"],
+)
